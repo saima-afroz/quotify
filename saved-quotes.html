@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title> SAVED QUOTES </title>
+        <h1 style="text-align: center">QUOTIFY</h1>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body> 
+
+     <div style="text-align: center">
+          <button id="randomQuote" class="btn btn-outline-primary" >Random Quote (API)</button>
+      
+          <button id="randomQuoteLocal" class="btn btn-outline-primary" >Random Quote (Local)</button>
+       
+          <button id="addQuote" class="btn btn-outline-primary" >Add Quote</button>
+       
+          <button id="listQuotes" class="btn btn-outline-primary" >List All Quotes (Local)</button> 
+     
+    </div> <br/> <br/>    
+    <div  id="quote" style="text-align: center" class="alert alert-primary" role="alert"></div> <br/> 
+
+     <div style="text-align: center"><button onclick="myFunction()" id="getAnother" class="btn btn-info" >GET ANOTHER QUOTE</button></div> <br/>
+    
+
+    <script> 
+
+    var apiQuoteHandle = document.getElementById('randomQuote');
+    var randomQuoteLocal = document.getElementById('randomQuoteLocal');
+    var addQuote = document.getElementById('addQuote');
+     var listQuotes = document.getElementById('listQuotes');
+
+    var quoteHandle = document.getElementById('quote');
+    
+    var getAnother = document.getElementById('getAnother');
+
+
+    
+    
+    // function getNewQuote(){
+    //   var url = 'https://talaikis.com/api/quotes/random/';
+    //   axios.get(`${url}`).then(function(response){
+    //     var result = response.data;
+    //     (function(){
+    //         quoteHandle.innerHTML = `${result.quote} \n ~ ${result.author}`;
+    //    })();
+    //   }).catch(function(err){
+    // console.log(err);
+    //    });
+    // }
+    // getNewQuote();
+
+  
+//--------------------------------------
+
+
+ let getQuote = localStorage.getItem('quotz') ? JSON.parse(localStorage.getItem('quotz')) : [];
+ localStorage.setItem('quotz', JSON.stringify(getQuote));
+
+    
+let quotesInStorage = JSON.parse(localStorage.getItem('quotz'));
+  
+   function myFunction(){
+       
+ var l = quotesInStorage.length;
+ var indexOfQuote = Math.floor(Math.random()*Math.floor(l));
+
+ if(indexOfQuote<quotesInStorage.length){
+
+    quoteHandle.innerText = quotesInStorage[indexOfQuote].quote + " ~ " + quotesInStorage[indexOfQuote].author;
+
+        }
+    }
+    myFunction();
+   
+
+//---------------------------------------
+
+randomQuoteLocal.addEventListener('click',function(){
+    myFunction();
+  },false);
+         
+
+//----------------------------------------
+
+apiQuoteHandle.addEventListener('click',function(){
+   window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/index.html";
+  },false);
+ 
+//--------------------------
+
+
+addQuote.addEventListener('click',function(){
+
+  window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/new-quote.html";
+
+},false);
+
+//------------------------------------
+
+listQuotes.addEventListener('click',function(){
+ window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/list-all-saved-quote.html";
+},false);   
+
+//------------------------
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+    
+    </html>

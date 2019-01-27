@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title> ADD QUOTE </title>
+        <h1 style="text-align: center">QUOTIFY</h1>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body> 
+
+     <div style="text-align: center">
+          <button id="randomQuote" class="btn btn-outline-primary" >Random Quote (API)</button>
+      
+          <button id="randomQuoteLocal" class="btn btn-outline-primary" >Random Quote (Local)</button>
+       
+          <button id="addQuote" class="btn btn-outline-primary" >Add Quote</button>
+       
+          <button id="listQuotes" class="btn btn-outline-primary" >List All Quotes (Local)</button> 
+     
+    </div> <br/> <br/>
+    <form id="myForm">
+
+        <div style="text-align: center">    
+    <textarea rows="4" cols="50" id="body" > </textarea></div> <br/><br/> 
+    <div style="text-align: center"><input id="author" type="text" style="text-align: center"/></div>
+     <br/> <br/>
+
+    </form>
+   
+    
+
+    <div style="text-align: center" ><button id="submitButton" type="button" class="btn btn-primary btn-lg">Submit</button></div>   
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+
+    <script> 
+    var apiQuoteHandle = document.getElementById('randomQuote');
+    var randomQuoteLocal = document.getElementById('randomQuoteLocal');
+    var addQuote = document.getElementById('addQuote');
+     var listQuotes = document.getElementById('listQuotes');
+
+    var quoteInput = document.getElementById('body');
+    var authorInput = document.getElementById('author');
+    var submitQuote = document.getElementById('submitButton');
+//--------------------------------------
+
+let quoteText = localStorage.getItem('quotz') ? JSON.parse(localStorage.getItem('quotz')) : [];
+ 
+ localStorage.setItem('quotz', JSON.stringify(quoteText));
+
+ submitQuote.addEventListener('click',function(){
+       
+    
+
+     let quotesInStorage = JSON.parse(localStorage.getItem('quotz'));
+        
+     var eachQuote = {};
+     eachQuote.quote = quoteInput.value;         
+     eachQuote.author = authorInput.value;
+
+       
+
+        quotesInStorage.push(eachQuote);
+
+        localStorage.setItem('quotz',JSON.stringify(quotesInStorage));
+         
+        submitQuote.innerText = "Submitted Successfully";
+
+        document.getElementById("myForm").reset();
+
+        
+      
+
+     },false);
+
+//------------------------------------ 
+randomQuoteLocal.addEventListener('click',function(){
+   window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/saved-quotes.html";
+  },false);
+ 
+//--------------------------
+
+
+apiQuoteHandle.addEventListener('click',function(){
+   window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/index.html";
+  },false);
+
+//------------------------------------
+
+listQuotes.addEventListener('click',function(){
+ window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/list-all-saved-quote.html";
+},false);   
+
+//------------------------
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <style>
+  
+    
+    </style>
+    </body>
+    
+    </html>

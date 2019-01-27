@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title> QUOTIFY </title>
+        <h1 style="text-align: center">QUOTIFY</h1>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body> 
+
+     <div style="text-align: center">
+          <button id="randomQuote" class="btn btn-outline-primary" >Random Quote (API)</button>
+      
+          <button id="randomQuoteLocal" class="btn btn-outline-primary" >Random Quote (Local)</button>
+       
+          <button id="addQuote" class="btn btn-outline-primary" >Add Quote</button>
+       
+          <button id="listQuotes" class="btn btn-outline-primary" >List All Quotes (Local)</button> 
+     
+    </div> <br/> <br/>    
+ 
+   
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+
+    <script> 
+    var apiQuoteHandle = document.getElementById('randomQuote');
+    var randomQuoteLocal = document.getElementById('randomQuoteLocal');
+    var addQuote = document.getElementById('addQuote');
+     var listQuotes = document.getElementById('listQuotes');
+
+ 
+//--------------------------------------
+
+
+let quoteText = localStorage.getItem('quotz') ? JSON.parse(localStorage.getItem('quotz')) : [];
+ 
+ localStorage.setItem('quotz', JSON.stringify(quoteText));
+ 
+ 
+
+  let quotesInStorage = JSON.parse(localStorage.getItem('quotz'));
+
+  for(var i =0; i< quotesInStorage.length;i++){
+let newQuote = document.createElement('div');
+ let deleteButton = document.createElement('button');
+ let editButton = document.createElement('button');
+ let saveButton = document.createElement('button');
+
+    newQuote = document.createElement('div');
+    newQuote.innerText = quotesInStorage[i].quote + ' ~ ' + quotesInStorage[i].author ;
+     newQuote.setAttribute('class',"alert alert-primary");
+
+     editButton = document.createElement('button');
+     //editButton.innerText = "EDIT";
+     var edt = document.createTextNode("EDIT")
+     editButton.setAttribute('class','bton');
+     editButton.setAttribute('id','edit'+i)
+     editButton.appendChild(edt)
+     newQuote.appendChild(editButton);
+
+    deleteButton = document.createElement('button');
+    var del = document.createTextNode("DELETE")
+    //deleteButton.innerText = "DELETE";
+    deleteButton.setAttribute('class','bton');
+    deleteButton.setAttribute('id','del'+i)
+    deleteButton.appendChild(del)
+    newQuote.appendChild(deleteButton);
+
+    saveButton = document.createElement('button')
+    var save = document.createTextNode("SAVE")
+    saveButton.setAttribute('class','bton')
+    saveButton.setAttribute('id','save'+i)
+    saveButton.style.display ="none"
+    saveButton.appendChild(save)
+    newQuote.appendChild(saveButton)
+
+
+    document.body.appendChild(newQuote);
+     
+   
+    listenMe(editButton.getAttribute("id"));
+   }
+
+   function listenMe(btnid){
+       document.getElementById("edit"+btnid).addEventListener('click',function(){
+     document.getElementById("del"+i).style.display = "none"
+     document.getElementById("edit"+i).style.display = "none"
+     document.getElementById("save"+i).style.display = "block"
+   },false);
+
+   }
+
+  
+      
+   localStorage.setItem('quotz',JSON.stringify(quotesInStorage));
+    
+
+     
+
+//------------------------------------ 
+randomQuoteLocal.addEventListener('click',function(){
+   window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/saved-quotes.html";
+  },false);
+ 
+//--------------------------
+
+
+addQuote.addEventListener('click',function(){
+
+  window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/new-quote.html";
+
+},false);
+
+//------------------------------------
+
+apiQuoteHandle.addEventListener('click',function(){
+   window.location = "file:///D:/full-stack-sept/javascript/DOM/quotify/index.html";
+  },false);
+
+//------------------------------------
+
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+    <style>
+            .bton  {
+              float: right;
+            }
+            </style>
+    
+    </html>
